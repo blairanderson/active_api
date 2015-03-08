@@ -54,12 +54,16 @@ module ActiveApiDefinition
       end
     end
 
+    def apply_property_names(target, hash)
+      if hash[:pluck].present?
+        target.pluck(hash[:pluck])
+      else
+        target
+      end
+    end
+
     def apply_scopes(target, hash)
-      puts scopes_configuration
-
       scopes_configuration.each do |scope, options|
-        next unless apply_scope_to_action?(options)
-
         key = options[:as]
         if hash.key?(key)
           value, call_scope = hash[key], true
@@ -114,18 +118,6 @@ module ActiveApiDefinition
         block ? block.call(self, target, value) : target.send(scope, *value)
       else
         block ? block.call(self, target, value) : target.send(scope, value)
-      end
-    end
-
-    # Given an options with :only and :except arrays, check if the scope
-    # can be performed in the current action.
-    def apply_scope_to_action?(options) #:nodoc:
-      return false unless applicable?(options[:if], true) && applicable?(options[:unless], false)
-
-      if options[:only].empty?
-        options[:except].empty? || !options[:except].include?(action_name.to_sym)
-      else
-        options[:only].include?(action_name.to_sym)
       end
     end
 
