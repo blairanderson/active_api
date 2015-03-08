@@ -10,7 +10,13 @@ ActiveApi wraps [https://github.com/rails-api/active_model_serializers](rails-ap
 
 # MAINTENANCE, PLEASE READ
 
-This is the master branch of ActiveApi. Its going to be released when AMS hits `0.10.0`.
+This is undergoing heavy development.
+
+TODOs:
+- Swagger spec from `1.2` to `2.0`
+- Add serializer details to swagger spec
+- add collection routes
+- add member routes
 
 ## Setup
 
