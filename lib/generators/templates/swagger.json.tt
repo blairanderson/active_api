@@ -4,6 +4,6 @@
   "basePath": "http://localhost:3000<%= mount_path %>",
   "consumes": ["application/json"],
   "produces": ["application/json"],
-  "apis": <%= defined_apis.to_json %>,
-  "info": <%= swagger_api_config.to_json %>
+  "apis": <%= JSON.pretty_generate(defined_apis) %>,
+  "info": <%= JSON.pretty_generate(swagger_api_config) %>
 }
