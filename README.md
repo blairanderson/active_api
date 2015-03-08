@@ -19,7 +19,7 @@ This is the master branch of ActiveApi. Its going to be released when AMS hits `
 #Gemfile
 
 gem 'active_model_serializers'
-gem 'active_api'
+gem 'active_api', github: 'blairanderson/active_api'
 
 ```
 

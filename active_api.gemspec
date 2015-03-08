@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
   s.add_runtime_dependency "active_model_serializers"
   s.add_runtime_dependency "will_paginate"
+  s.add_runtime_dependency "swagger-ui_rails"
 
   s.add_dependency "rails", "~> 4.2.0"
 end

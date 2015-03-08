@@ -51,6 +51,7 @@ end
 
 ActiveApi::Engine.routes.draw do
   ActiveApi::Engine.config.route_config.each do |route|
+
     name = resource_name(route)
     nested = route.delete(:do)
     config = resource_config(route)
@@ -58,6 +59,7 @@ ActiveApi::Engine.routes.draw do
     if !nested
       resources name, config
     else
+
       resources name, config do
         nested.each do |nested|
           if nested[:do].present?
@@ -68,10 +70,13 @@ ActiveApi::Engine.routes.draw do
           resources nested_name, nested_config
         end
       end
+
     end
+
   end
 
   root to: 'application#root'
+  if ActiveApi::Engine.config.documentation
+    get '/api-documentation', to: 'documentation#index'
+  end
 end
-
-
