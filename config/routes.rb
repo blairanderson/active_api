@@ -77,6 +77,6 @@ ActiveApi::Engine.routes.draw do
 
   root to: 'application#root'
   if ActiveApi::Engine.config.documentation
-    get '/api-documentation', to: 'documentation#index'
+    mount GrapeSwaggerRails::Engine => '/api-documentation'
   end
 end
