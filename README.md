@@ -56,7 +56,29 @@ View the new routes!
 
 ```shell
 
-rake routes
+$ rake routes
+
+Routes for ActiveApi::Engine:
+item_comments GET    /items/:item_id/comments(.:format)     active_api/nested_active_api#index {:model=>"Comment", :resources=>"comments", :parent_resource=>:items}
+              POST   /items/:item_id/comments(.:format)     active_api/nested_active_api#create {:model=>"Comment", :resources=>"comments", :parent_resource=>:items}
+ item_comment GET    /items/:item_id/comments/:id(.:format) active_api/nested_active_api#show {:model=>"Comment", :resources=>"comments", :parent_resource=>:items}
+              PATCH  /items/:item_id/comments/:id(.:format) active_api/nested_active_api#update {:model=>"Comment", :resources=>"comments", :parent_resource=>:items}
+              PUT    /items/:item_id/comments/:id(.:format) active_api/nested_active_api#update {:model=>"Comment", :resources=>"comments", :parent_resource=>:items}
+              DELETE /items/:item_id/comments/:id(.:format) active_api/nested_active_api#destroy {:model=>"Comment", :resources=>"comments", :parent_resource=>:items}
+        items GET    /items(.:format)                       active_api/active_api#index {:model=>"Item", :resources=>"items"}
+              POST   /items(.:format)                       active_api/active_api#create {:model=>"Item", :resources=>"items"}
+         item GET    /items/:id(.:format)                   active_api/active_api#show {:model=>"Item", :resources=>"items"}
+              PATCH  /items/:id(.:format)                   active_api/active_api#update {:model=>"Item", :resources=>"items"}
+              PUT    /items/:id(.:format)                   active_api/active_api#update {:model=>"Item", :resources=>"items"}
+              DELETE /items/:id(.:format)                   active_api/active_api#destroy {:model=>"Item", :resources=>"items"}
+        users GET    /users(.:format)                       active_api/active_api#index {:model=>"User", :resources=>"users", :serializer=>"human"}
+              POST   /users(.:format)                       active_api/active_api#create {:model=>"User", :resources=>"users", :serializer=>"human"}
+         user GET    /users/:id(.:format)                   active_api/active_api#show {:model=>"User", :resources=>"users", :serializer=>"human"}
+              PATCH  /users/:id(.:format)                   active_api/active_api#update {:model=>"User", :resources=>"users", :serializer=>"human"}
+              PUT    /users/:id(.:format)                   active_api/active_api#update {:model=>"User", :resources=>"users", :serializer=>"human"}
+              DELETE /users/:id(.:format)                   active_api/active_api#destroy {:model=>"User", :resources=>"users", :serializer=>"human"}
+         root GET    /                                      active_api/application#root
+
 
 ```
 The route config takes all options that a normal route can, including nested routes;
