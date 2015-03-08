@@ -13,7 +13,8 @@ module ActionDispatch
 
       def format(formatter)
         routes = get_routes(@routes)
-        formatter.to_swagger(routes)
+        formatter.to_swagger_v1(routes)
+        # formatter.to_swagger_v2(routes)
         formatter.result
       end
     end
@@ -25,6 +26,42 @@ module ActionDispatch
         @result = {}
       end
 
+      # eventually should look like this: https://github.com/swagger-api/swagger-spec/blob/master/versions/1.2.md
+      def to_swagger_v1(routes)
+        names = {}
+        @result = routes.each_with_object({}) do |route, result|
+          result[route.path] ||= {operations: []}
+
+          if route.name.present?
+            names[route.path] = route.name
+          end
+
+          result[route.path][:description] = "#{route.verb} : #{names[route.path]}"
+
+          result[route.path][:operations] << {
+            method: route.verb,
+            summary: names[route.path],
+            notes: route.defaults.to_s,
+            nickname: names[route.path],
+            parameters: [
+              {
+                name: "body",
+                description: "param description.",
+                required: true,
+                type: route.defaults[:model],
+                paramType: "body"
+              }
+            ]
+          }
+        end
+        @result.delete("/")
+        @result.delete("/api-documentation")
+        @result = @result.map do |path, api|
+          api[:path] = path
+          api
+        end
+      end
+
       # eventually should look like this: https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md#pathsObject
       # {
       #   path: {
@@ -33,9 +70,9 @@ module ActionDispatch
       #     }
       #   }
       # }
-      def to_swagger(routes)
+      def to_swagger_v2(routes)
         names = {}
-        @result = routes.each_with_object({}) do |route,result|
+        @result = routes.each_with_object({}) do |route, result|
           result[route.path] ||= {}
           if route.name.present?
             names[route.path] = route.name
