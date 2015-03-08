@@ -4,14 +4,15 @@
 
 ActiveApi brings convention over configuration to provide a JSON API.
 
-ActiveApi wraps [active_model_serializers](rails-api/active_model_serializers), [will_paginate](), [has_scope](), and api-documentation!
+ActiveApi wraps [https://github.com/rails-api/active_model_serializers](rails-api/active_model_serializers),
+[will_paginate](https://github.com/mislav/will_paginate),
+[has_scope](https://github.com/plataformatec/has_scope), and [api-documentation](api-documentation)!
 
 # MAINTENANCE, PLEASE READ
 
 This is the master branch of ActiveApi. Its going to be released when AMS hits `0.10.0`.
 
 ## Setup
-
 
 ```ruby
 
