@@ -4,9 +4,11 @@
 
 ActiveApi brings convention over configuration to help you provide a smart JSON API and documentation.
 
-ActiveApi wraps [https://github.com/rails-api/active_model_serializers](rails-api/active_model_serializers),
-[will_paginate](https://github.com/mislav/will_paginate),
-[has_scope](https://github.com/plataformatec/has_scope), and [api-documentation](api-documentation)!
+ActiveApi is a super easy api generator using:
+- [active_model_serializers](https://github.com/rails-api/active_model_serializers)
+- [will_paginate](https://github.com/mislav/will_paginate)
+- [has_scope](https://github.com/plataformatec/has_scope)
+- [swagger-ui](https://github.com//grape-swagger-rails)!
 
 # MAINTENANCE, PLEASE READ
 
