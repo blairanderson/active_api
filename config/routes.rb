@@ -48,6 +48,13 @@ def resource_name(route)
   route[:resources].to_sym
 end
 
+routes = ActiveApi::Engine.config.try(:route_config)
+
+unless routes
+  warn "You haven't configured any routes for ActiveApi. run `rails g active_api:install`"
+end
+
+ActiveApi::Engine.config.route_config = routes || []
 
 ActiveApi::Engine.routes.draw do
   ActiveApi::Engine.config.route_config.each do |route|
@@ -76,7 +83,7 @@ ActiveApi::Engine.routes.draw do
   end
 
   root to: 'application#root'
-  if ActiveApi::Engine.config.documentation
+  if ActiveApi::Engine.config.try(:documentation)
     mount GrapeSwaggerRails::Engine => '/api-documentation'
   end
 end

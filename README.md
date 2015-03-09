@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/blairanderson/active_api.svg)](https://travis-ci.org/blairanderson/active_api)
 
-ActiveApi brings convention over configuration to provide a JSON API.
+ActiveApi brings convention over configuration to help you provide a smart JSON API and documentation.
 
 ActiveApi wraps [https://github.com/rails-api/active_model_serializers](rails-api/active_model_serializers),
 [will_paginate](https://github.com/mislav/will_paginate),
