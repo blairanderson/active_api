@@ -23,13 +23,13 @@
 def resource_config(route, parent=false)
   if parent && parent.present?
     controller = 'nested_active_api'
-    route[:parent_resource] = parent
+    route[:parent_resource] = parent.to_s.classify
   else
     controller = 'active_api'
   end
 
   if route[:resources] && route[:resources].present?
-    model = route[:resources].to_s.singularize.capitalize
+    model = route[:resources].to_s.classify
   end
 
   if route[:model] && route[:model].present?
@@ -37,7 +37,7 @@ def resource_config(route, parent=false)
   end
 
   {
-    format: :json,
+    constraints: {format: 'json'},
     except: [:new, :edit],
     controller: controller,
     model: model
