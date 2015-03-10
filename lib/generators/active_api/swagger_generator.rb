@@ -30,19 +30,21 @@ module ActionDispatch
       def to_swagger_v1(routes)
         names = {}
         @result = routes.each_with_object({}) do |route, result|
-          result[route.path] ||= {operations: []}
+          path = route.path[0..-11]
+
+          result[path] ||= {operations: []}
 
           if route.name.present?
-            names[route.path] = route.name
+            names[path] = route.name
           end
 
-          result[route.path][:description] = "#{route.verb} : #{names[route.path]}"
+          result[path][:description] = "#{route.verb} : #{names[path]}"
 
-          result[route.path][:operations] << {
+          result[path][:operations] << {
             method: route.verb,
-            summary: names[route.path],
+            summary: names[path],
             notes: route.defaults.to_s,
-            nickname: names[route.path],
+            nickname: names[path],
             parameters: [
               {
                 name: "body",
@@ -63,6 +65,7 @@ module ActionDispatch
       end
 
       # eventually should look like this: https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md#pathsObject
+      # http://petstore.swagger.io/v2/swagger.json
       # {
       #   path: {
       #     verb: {
