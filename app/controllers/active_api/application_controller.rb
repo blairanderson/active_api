@@ -14,6 +14,10 @@ module ActiveApi
         }
     end
 
+    private
+    def not_found
+      raise 'boom'
+    end
   end
 
 end
