@@ -25,6 +25,10 @@ module ActiveApi
       unless @model.exists?
         not_found
       end
+
+      if @current_user
+        @model = @model.where(user_id: @current_user.id)
+      end
     end
 
     def set_serializer

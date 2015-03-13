@@ -1,6 +1,13 @@
 require "active_api/engine"
 
 module ActiveApi
+  def self.auth
+    return {
+      model: "ApiKey",
+      user: "user",
+      token: "token"
+    }.merge(ActiveApi::Engine.config.try(:authorization) || {})
+  end
 end
 
 module ActiveApiDefinition

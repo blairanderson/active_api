@@ -15,10 +15,14 @@ ActiveApi is a super easy api generator using:
 This is undergoing heavy development.
 
 TODOs:
-- Swagger spec from `1.2` to `2.0`
-- Add serializer details to swagger spec
-- add collection routes
-- add member routes
+- [x] add config based resources
+- [x] add config based nested routes
+- [x] add authentication and user scoping
+- [ ] Swagger spec from `1.2` to `2.0`
+- [ ] Add serializer details to swagger spec
+- [ ] add collection routes
+- [ ] add member routes
+
 
 ## Setup
 
@@ -96,6 +100,39 @@ The route config takes all options that a normal route can, including nested rou
 
 [ActiveModel::Serializers](rails_api/active_model_serializers)
 
+
+### User Scoping!
+
+Want to find objects that are scoped to a user?
+
+Send an http header
+
+```bash
+
+$ curl http://localhost:3000/api/items -H 'Authorization: Token token="afbadb4ff8485c0adcba486b4ca90cc4"'
+
+```
+
+Where the token is:
+
+```ruby
+token = ApiKey.where(token: token).first
+scope = user = token.try(:user)
+
+```
+
+You can also configure
+
+```ruby
+ActiveApi::Engine.config.authorization = {
+  model: "Identity",
+  user: "account"
+}
+```
+
+Which we will use to call `scope = Identity.where(token: token).first.try(:account)`
+
+if a scope exists, all future requests will be scoped.
 
 ## Create a Serializer from Config
 

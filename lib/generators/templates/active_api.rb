@@ -23,3 +23,9 @@ ActiveApi::Engine.config.documentation = {
   license: "MIT",
   license_url: "http://github.com/blairanderson/active_api/tree/master/LICENSE.md"
 }
+
+ActiveApi::Engine.config.authorization = {
+  model: "ApiKey",
+  user: "user",
+  token: "token"
+}
