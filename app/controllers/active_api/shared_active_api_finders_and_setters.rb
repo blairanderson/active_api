@@ -1,28 +1,9 @@
 module ActiveApi
   module SharedActiveApiFindersAndSetters
 
-    def model_params
-      params.require(params[:model].to_sym).permit!
-    end
-
-    def get_serializer_for(klass)
-      if params[:serializer].present?
-        serializer_class_name = "#{params[:serializer]}Serializer"
-      else
-        serializer_class_name = "#{klass.name}Serializer"
-      end
-      serializer_class = serializer_class_name.safe_constantize
-
-      if serializer_class
-        serializer_class
-      elsif klass.superclass
-        get_serializer_for(klass.superclass)
-      end
-    end
-
     def set_model
       @model = params[:model].safe_constantize
-      unless @model.exists?
+      unless @model
         not_found
       end
 
@@ -34,6 +15,7 @@ module ActiveApi
     def set_serializer
       @serializer = get_serializer_for(@model)
     end
+
 
     def set_scopes_and_filters
       if @serializer
@@ -54,6 +36,26 @@ module ActiveApi
       end
       require "will_paginate"
       @model = @model.paginate(page: params[:page], per_page: per_page)
+    end
+
+
+    def model_params
+      params.require(params[:model].downcase).permit(*@serializer.as_json["_attributes"])
+    end
+
+    def get_serializer_for(klass)
+      if params[:serializer].present?
+        serializer_class_name = "#{params[:serializer]}Serializer"
+      else
+        serializer_class_name = "#{klass.name}Serializer"
+      end
+      serializer_class = serializer_class_name.safe_constantize
+
+      if serializer_class
+        serializer_class
+      elsif klass.superclass
+        get_serializer_for(klass.superclass)
+      end
     end
 
   end
