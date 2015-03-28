@@ -18,6 +18,7 @@ TODOs:
 - [x] add config based resources
 - [x] add config based nested routes
 - [x] add authentication and user scoping
+- [ ] comply with [JSON:API](https://github.com/json-api/json-api)
 - [ ] Swagger spec from `1.2` to `2.0`
 - [ ] Add serializer details to swagger spec
 - [ ] add collection routes
@@ -124,10 +125,12 @@ scope = user = token.try(:user)
 You can also configure
 
 ```ruby
+
 ActiveApi::Engine.config.authorization = {
   model: "Identity",
   user: "account"
 }
+
 ```
 
 Which we will use to call `scope = Identity.where(token: token).first.try(:account)`
